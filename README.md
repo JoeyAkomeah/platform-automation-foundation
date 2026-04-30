@@ -12,5 +12,11 @@ Production-hardened RHEL 9 on AWS using Terraform and Ansible.
 
 ## Quick Start
 
+git clone https://github.com/JoeyAkomeah/platform-automation-foundation.git
+cd platform-automation-foundation
+make deploy-all
+curl http://<public-ip>/
+make destroy
+
 ## Author
 Joey Akomeah - Platform & DevOps Engineer
