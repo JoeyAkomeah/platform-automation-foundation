@@ -1,0 +1,12 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+*.retry
+ansible/*.log
+inventory.ini
+*.pem
+vault.yml
+Vagrantfile
+.vagrant/
+LICENSE.txt
+terraform/.terraform.lock.hcl

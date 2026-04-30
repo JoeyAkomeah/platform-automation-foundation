@@ -1,0 +1,38 @@
+---
+- name: Install EPEL repository (RHEL 9)
+  ansible.builtin.dnf:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
+    state: present
+    disable_gpg_check: yes
+
+- name: Install firewalld
+  ansible.builtin.dnf:
+    name: firewalld
+    state: present
+
+- name: Start firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Harden kernel parameters
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: yes
+  loop:
+    - { name: 'net.ipv4.tcp_syncookies', value: '1' }
+    - { name: 'net.ipv4.conf.all.rp_filter', value: '1' }
+    - { name: 'kernel.kptr_restrict', value: '1' }
+
+- name: Install troubleshooting tools
+  ansible.builtin.dnf:
+    name:
+      - htop
+      - tcpdump
+      - strace
+      - sysstat
+      - stress
+    state: present
